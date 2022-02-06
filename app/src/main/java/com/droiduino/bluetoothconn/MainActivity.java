@@ -119,7 +119,8 @@ public class MainActivity extends AppCompatActivity {
         Set_Jadwal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String jam=ValueJam.getText().toString();
+//                String jam=ValueJam.getText().toString();
+                String jam=sharedPrefManager.getSP_Jam();
                 String Jumlah_pakan=Jumlah_Pakan.getText().toString();
                 String Pakan_No=Nomor_Jadwal.getText().toString();
                 String Jadwal=jam+","+Jumlah_pakan;
@@ -280,7 +281,8 @@ public class MainActivity extends AppCompatActivity {
             timePickerDialog = new TimePickerDialog(MainActivity.this, new TimePickerDialog.OnTimeSetListener() {
                 @Override
                 public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                    ValueJam.setText(hourOfDay+","+minute);
+                    ValueJam.setText(hourOfDay+":"+minute);
+                    sharedPrefManager.saveSPString(SharedPrefManager.SP_Jam,hourOfDay+","+minute);
                 }
             },
                     calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE),
