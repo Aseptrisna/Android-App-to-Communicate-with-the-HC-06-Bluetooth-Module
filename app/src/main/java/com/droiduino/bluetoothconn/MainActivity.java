@@ -93,7 +93,12 @@ public class MainActivity extends AppCompatActivity {
         Pilih_Jam.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showtime();
+                try{
+                    showtime();
+                }catch (Exception e){
+
+                }
+
             }
         });
         Pakan_L.setOnClickListener(new View.OnClickListener() {
@@ -277,7 +282,7 @@ public class MainActivity extends AppCompatActivity {
             calendar = Calendar.getInstance();
         }
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             timePickerDialog = new TimePickerDialog(MainActivity.this, new TimePickerDialog.OnTimeSetListener() {
                 @Override
                 public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
