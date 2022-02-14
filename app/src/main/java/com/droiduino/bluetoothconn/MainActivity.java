@@ -4,6 +4,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.annotation.SuppressLint;
 import android.app.TimePickerDialog;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
@@ -47,8 +48,8 @@ public class MainActivity extends AppCompatActivity {
     public static ConnectedThread connectedThread;
     public static CreateConnectThread createConnectThread;
     TextView Message;
-    EditText Nomor_Jadwal,ValueJam,Jumlah_Pakan;
-    TextView Jadwal1,Jadwal2,Jadwal3;
+    EditText Nomor_Jadwal;
+    TextView Jadwal1,Jadwal2,Jadwal3,ValueJam,Jumlah_Pakan;
     Button Pilih_Jam,Pakan_M,Pakan_S,Pakan_L,Set_Jadwal,Kirim_Jadwal,Hapus_Jadwal;
     private TimePickerDialog timePickerDialog;
     SharedPrefManager sharedPrefManager;
@@ -64,8 +65,8 @@ public class MainActivity extends AppCompatActivity {
         sharedPrefManager=new SharedPrefManager(this);
 //        connectedThread=new ConnectedThread(MainActivity.this);
         Nomor_Jadwal=(EditText) findViewById(R.id.jadwal_number);
-        ValueJam=(EditText) findViewById(R.id.valuejam);
-        Jumlah_Pakan=(EditText) findViewById(R.id.valuepakan);
+        ValueJam=(TextView) findViewById(R.id.valuejam);
+        Jumlah_Pakan=(TextView) findViewById(R.id.valuepakan);
 
         Jadwal1=(TextView) findViewById(R.id.jadwal1);
         Jadwal2=(TextView) findViewById(R.id.jadwal2);
@@ -93,30 +94,43 @@ public class MainActivity extends AppCompatActivity {
         Pilih_Jam.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                try{
+//                try{
                     showtime();
-                }catch (Exception e){
-
-                }
+//                }catch (Exception e){
+//
+//                }
 
             }
         });
         Pakan_L.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("ResourceAsColor")
             @Override
             public void onClick(View v) {
-                Jumlah_Pakan.setText("03");
+                Jumlah_Pakan.setText("Jumlah Pakan:Banyak");
+                sharedPrefManager.saveSPString(SharedPrefManager.SP_ValuePakan,"01");
+//                Pakan_L.setBackgroundResource(R.color.colorOn);
+//                Pakan_M.setBackgroun(getResources().getColor(R.color.warm));
             }
         });
         Pakan_M.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("ResourceAsColor")
             @Override
             public void onClick(View v) {
-                Jumlah_Pakan.setText("02");
+                Jumlah_Pakan.setText("Jumlah Pakan:Sedang");
+                sharedPrefManager.saveSPString(SharedPrefManager.SP_ValuePakan,"02");
+//                Jumlah_Pakan.setText("02");
+//                Pakan_M.setBackgroundColor(R.color.warm);
+//                Pakan_M.setBackground(R.color.colorOn);
             }
         });
         Pakan_S.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("ResourceAsColor")
             @Override
             public void onClick(View v) {
-                Jumlah_Pakan.setText("01");
+                Jumlah_Pakan.setText("Jumlah Pakan:Sedikit");
+                sharedPrefManager.saveSPString(SharedPrefManager.SP_ValuePakan,"03");
+//                Jumlah_Pakan.setText("01");
+//                Pakan_S.setBackgroundColor(R.color.warm);
             }
         });
         setJadwal();
@@ -126,7 +140,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
 //                String jam=ValueJam.getText().toString();
                 String jam=sharedPrefManager.getSP_Jam();
-                String Jumlah_pakan=Jumlah_Pakan.getText().toString();
+                String Jumlah_pakan=sharedPrefManager.getSP_ValuePakan();
                 String Pakan_No=Nomor_Jadwal.getText().toString();
                 String Jadwal=jam+","+Jumlah_pakan;
                 if(jam.equals("")){
@@ -153,11 +167,15 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         Hapus_Jadwal.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("ResourceAsColor")
             @Override
             public void onClick(View v) {
                 sharedPrefManager.saveSPString(SharedPrefManager.SP_Jadwal_1,"Jadwal belum di atur");
                 sharedPrefManager.saveSPString(SharedPrefManager.SP_Jadwal_2,"Jadwal belum di atur");
                 sharedPrefManager.saveSPString(SharedPrefManager.SP_Jadwal_3,"Jadwal belum di atur");
+//                Pakan_L.setBackgroundColor(R.color.colorPrimaryDark);
+//                Pakan_S.setBackgroundColor(R.color.colorPrimaryDark);
+//                Pakan_M.setBackgroundColor(R.color.colorPrimaryDark);
                 setJadwal();
             }
         });
@@ -278,7 +296,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void showtime() {
         Calendar calendar = null;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             calendar = Calendar.getInstance();
         }
 
@@ -287,7 +305,14 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
                     ValueJam.setText(hourOfDay+":"+minute);
-                    sharedPrefManager.saveSPString(SharedPrefManager.SP_Jam,hourOfDay+","+minute);
+                   // if(parseInt(String s))
+                    int x =Integer.parseInt(String.valueOf(hourOfDay));
+                    if(x <=9){
+                        sharedPrefManager.saveSPString(SharedPrefManager.SP_Jam,"0"+hourOfDay+","+"0"+minute);
+                    }else {
+                        sharedPrefManager.saveSPString(SharedPrefManager.SP_Jam,hourOfDay+","+minute);
+                    }
+
                 }
             },
                     calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE),

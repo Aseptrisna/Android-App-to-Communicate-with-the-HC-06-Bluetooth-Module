@@ -83,7 +83,7 @@
             android:orientation="vertical">
             <TextView
                 android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
+                android:layout_marginBottom="5dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:gravity="center"
@@ -107,16 +107,21 @@
                     android:layout_marginLeft="5dp"
                     android:layout_marginBottom="5dp"
                     android:layout_marginTop="5dp"
+                    android:textSize="15dp"
+                    android:textStyle="bold"
                     android:text="Jadwal Ke :"
                     android:layout_width="wrap_content"
-                    android:layout_height="40dp"/>
+                    android:layout_height="wrap_content"/>
 
                 <EditText
+                    android:textColor="@color/design_default_color_surface"
+                    android:textStyle="bold"
+                    android:textColorHint="@color/design_default_color_surface"
                     android:inputType="number"
                     android:id="@+id/jadwal_number"
-                    android:hint="Contoh : 1"
+                    android:hint=""
                     android:layout_width="match_parent"
-                    android:textSize="12dp"
+                    android:textSize="15dp"
                     android:layout_height="40dp"
                     android:layout_marginLeft="5dp"
                     android:layout_marginTop="5dp"
@@ -125,7 +130,7 @@
             </LinearLayout>
             <LinearLayout
                 android:layout_marginRight="5dp"
-                android:layout_marginLeft="5dp"
+                android:layout_marginLeft="10dp"
                 android:layout_marginBottom="5dp"
                 android:layout_marginTop="5dp"
                 android:orientation="horizontal"
@@ -134,19 +139,22 @@
                 <Button
                     android:id="@+id/jam"
                     android:layout_marginRight="5dp"
-                    android:layout_marginLeft="5dp"
+                    android:layout_marginLeft="12dp"
                     android:layout_marginBottom="5dp"
                     android:layout_marginTop="5dp"
                     android:text="jam"
                     android:layout_width="70dp"
                     android:layout_height="40dp"/>
 
-                <EditText
+                <TextView
+                    android:textColor="@color/design_default_color_surface"
+                    android:textStyle="bold"
+                    android:textColorHint="@color/design_default_color_surface"
                     android:id="@+id/valuejam"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
-                    android:hint="Masukan Jam"
-                    android:textSize="12dp"
+                    android:hint=""
+                    android:textSize="15dp"
                     android:layout_marginLeft="5dp"
                     android:layout_marginTop="5dp"
                     android:layout_marginRight="5dp"
@@ -161,7 +169,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="20dp"
                 android:textStyle="bold"
-                android:textSize="10dp"
+                android:textSize="15dp"
                 android:textColor="@color/design_default_color_surface"
                 android:text="Pilh Jumlah Pakan"/>
             <LinearLayout
@@ -173,45 +181,55 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <Button
+
+                    android:background="@color/cool"
                     android:id="@+id/small"
                     android:layout_marginRight="5dp"
-                    android:layout_marginLeft="5dp"
+                    android:layout_marginLeft="15dp"
                     android:layout_marginBottom="5dp"
                     android:layout_marginTop="5dp"
-                    android:text="S"
-                    android:layout_width="70dp"
+                    android:text="Sedikit"
+                    android:layout_width="wrap_content"
                     android:layout_height="40dp"/>
                 <Button
+
+                    android:background="@color/cool"
                     android:id="@+id/medium"
                     android:layout_marginRight="5dp"
                     android:layout_marginLeft="5dp"
                     android:layout_marginBottom="5dp"
                     android:layout_marginTop="5dp"
-                    android:text="M"
-                    android:layout_width="70dp"
+                    android:text="Sedang"
+                    android:layout_width="wrap_content"
                     android:layout_height="40dp"/>
                 <Button
+
+                    android:background="@color/cool"
                     android:id="@+id/large"
                     android:layout_marginRight="5dp"
                     android:layout_marginLeft="5dp"
                     android:layout_marginBottom="5dp"
                     android:layout_marginTop="5dp"
-                    android:text="L"
-                    android:layout_width="70dp"
+                    android:text="Banyak"
+                    android:layout_width="wrap_content"
                     android:layout_height="40dp"/>
 
-                <EditText
-                    android:id="@+id/valuepakan"
-                    android:layout_marginRight="5dp"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginBottom="5dp"
-                    android:layout_marginTop="5dp"
-                    android:hint=""
-                    android:layout_width="match_parent"
-                    android:textSize="12dp"
-                    android:layout_height="40dp" />
-
             </LinearLayout>
+            <TextView
+                android:textColor="@color/design_default_color_surface"
+                android:textStyle="bold"
+                android:textColorHint="@color/design_default_color_surface"
+                android:layout_gravity="center"
+                android:gravity="left"
+                android:id="@+id/valuepakan"
+                android:layout_marginRight="5dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
+                android:hint=""
+                android:layout_width="match_parent"
+                android:textSize="15dp"
+                android:layout_height="wrap_content" />
 
             <Button
                 android:id="@+id/btnsetjadwal"

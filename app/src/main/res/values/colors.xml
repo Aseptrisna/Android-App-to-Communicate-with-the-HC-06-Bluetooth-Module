@@ -5,4 +5,6 @@
     <color name="colorAccent">#E040FB</color>
     <color name="colorOff">#FFFFFF</color>
     <color name="colorOn">#E040FB</color>
+    <color name="cool">#188FCF</color>
+    <color name="warm">#F1D416</color>
 </resources>
