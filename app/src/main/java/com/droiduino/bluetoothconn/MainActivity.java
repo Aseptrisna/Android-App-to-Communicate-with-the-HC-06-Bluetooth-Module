@@ -138,34 +138,10 @@ public class MainActivity extends AppCompatActivity {
         Set_Jadwal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                String jam=ValueJam.getText().toString();
-                String jam=sharedPrefManager.getSP_Jam();
-                String Jumlah_pakan=sharedPrefManager.getSP_ValuePakan();
-                String Pakan_No=Nomor_Jadwal.getText().toString();
-                String Jadwal=jam+","+Jumlah_pakan;
-                if(jam.equals("")){
-                    Toast.makeText(MainActivity.this, "Kolom Jam Tidak Boleh Kosong", Toast.LENGTH_SHORT).show();
-                }else if(Jumlah_pakan.equals("")){
-                    Toast.makeText(MainActivity.this, "Pilih Jumlah Pakan !!!", Toast.LENGTH_SHORT).show();
-                }else if(Pakan_No.equals("")){
-                    Toast.makeText(MainActivity.this, "Masukan Nomor Jadwal", Toast.LENGTH_SHORT).show();
-                }else {
-                    if(Pakan_No.equals("1")){
-                        sharedPrefManager.saveSPString(SharedPrefManager.SP_Jadwal_1,Jadwal);
-                    }else if(Pakan_No.equals("2")){
-                        sharedPrefManager.saveSPString(SharedPrefManager.SP_Jadwal_2,Jadwal);
-                    }else if(Pakan_No.equals("3")){
-                        sharedPrefManager.saveSPString(SharedPrefManager.SP_Jadwal_3,Jadwal);
-                    }else {
-                        sharedPrefManager.saveSPString(SharedPrefManager.SP_Jadwal_1,"Jadwal belum di atur");
-                        sharedPrefManager.saveSPString(SharedPrefManager.SP_Jadwal_2,"Jadwal belum di atur");
-                        sharedPrefManager.saveSPString(SharedPrefManager.SP_Jadwal_3,"Jadwal belum di atur");
-                    }
-                    setJadwal();
-                }
-
+            check_jam();
             }
         });
+
         Hapus_Jadwal.setOnClickListener(new View.OnClickListener() {
             @SuppressLint("ResourceAsColor")
             @Override
@@ -307,11 +283,15 @@ public class MainActivity extends AppCompatActivity {
                     ValueJam.setText(hourOfDay+":"+minute);
                    // if(parseInt(String s))
                     int x =Integer.parseInt(String.valueOf(hourOfDay));
-                    if(x <=9){
-                        sharedPrefManager.saveSPString(SharedPrefManager.SP_Jam,"0"+hourOfDay+","+"0"+minute);
-                    }else {
-                        sharedPrefManager.saveSPString(SharedPrefManager.SP_Jam,hourOfDay+","+minute);
-                    }
+                    int y =Integer.parseInt(String.valueOf(minute));
+//                    if(x <=9) {
+//                        sharedPrefManager.saveSPString(SharedPrefManager.SP_Jam, "0" + hourOfDay);
+//                    }else if(minute <=9){
+//                        sharedPrefManager.saveSPString(SharedPrefManager.SP_Menit, "0" + minute);
+//                    }else {
+                        sharedPrefManager.saveSPString(SharedPrefManager.SP_Jam,""+hourOfDay);
+                        sharedPrefManager.saveSPString(SharedPrefManager.SP_Menit,""+minute);
+//                    }
 
                 }
             },
@@ -321,6 +301,58 @@ public class MainActivity extends AppCompatActivity {
         timePickerDialog.show();
     }
 
+    public void check_jam(){
+        String jam=sharedPrefManager.getSP_Jam();
+        String hasiljam="";
+        int x =Integer.parseInt(jam);
+        if(x <=9){
+            hasiljam="0"+sharedPrefManager.getSP_Jam();
+            check_menit(hasiljam);
+        }else {
+            hasiljam=sharedPrefManager.getSP_Jam();
+            check_menit(hasiljam);
+        }
+    }
+    public void check_menit(String hasiljam){
+        String menit=sharedPrefManager.getSP_Menit();
+        String hasilmenit="";
+        int y =Integer.parseInt(menit);
+        Log.d("menit", String.valueOf(y));
+        if(y <=9){
+            hasilmenit="0"+sharedPrefManager.getSP_Menit();
+            settingjadwal(hasiljam,hasilmenit);
+        }else{
+            hasilmenit=sharedPrefManager.getSP_Menit();
+            settingjadwal(hasiljam,hasilmenit);
+        }
+    }
+
+    public void settingjadwal(String hasiljam, String hasilmenit){
+        String jam=sharedPrefManager.getSP_Jam();
+        String Jumlah_pakan=sharedPrefManager.getSP_ValuePakan();
+        String Pakan_No=Nomor_Jadwal.getText().toString();
+        String Jadwal=hasiljam+","+hasilmenit+","+Jumlah_pakan;
+        if(jam.equals("")){
+            Toast.makeText(MainActivity.this, "Kolom Jam Tidak Boleh Kosong", Toast.LENGTH_SHORT).show();
+        }else if(Jumlah_pakan.equals("")){
+            Toast.makeText(MainActivity.this, "Pilih Jumlah Pakan !!!", Toast.LENGTH_SHORT).show();
+        }else if(Pakan_No.equals("")){
+            Toast.makeText(MainActivity.this, "Masukan Nomor Jadwal", Toast.LENGTH_SHORT).show();
+        }else {
+            if(Pakan_No.equals("1")){
+                sharedPrefManager.saveSPString(SharedPrefManager.SP_Jadwal_1,Jadwal);
+            }else if(Pakan_No.equals("2")){
+                sharedPrefManager.saveSPString(SharedPrefManager.SP_Jadwal_2,Jadwal);
+            }else if(Pakan_No.equals("3")){
+                sharedPrefManager.saveSPString(SharedPrefManager.SP_Jadwal_3,Jadwal);
+            }else {
+                sharedPrefManager.saveSPString(SharedPrefManager.SP_Jadwal_1,"Jadwal belum di atur");
+                sharedPrefManager.saveSPString(SharedPrefManager.SP_Jadwal_2,"Jadwal belum di atur");
+                sharedPrefManager.saveSPString(SharedPrefManager.SP_Jadwal_3,"Jadwal belum di atur");
+            }
+            setJadwal();
+        }
+    }
 
     public static class CreateConnectThread extends Thread {
 

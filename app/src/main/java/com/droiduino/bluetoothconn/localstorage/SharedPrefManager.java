@@ -24,6 +24,7 @@ public class SharedPrefManager {
     public static final String SP_Jadwal_2 = "Jawal_2";
     public static final String SP_Jadwal_3= "Jawal_3";
     public static final String SP_Jam= "jam";
+    public static final String SP_Menit= "menit";
     public static final String SP_ValuePakan= "pakan";
 //    public static List<Model_User> user;
 
@@ -109,5 +110,8 @@ public class SharedPrefManager {
     }
     public String getSP_ValuePakan(){
         return sp.getString(SP_ValuePakan, "");
+    }
+    public String getSP_Menit(){
+        return sp.getString(SP_Menit, "");
     }
 }
